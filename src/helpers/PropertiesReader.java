@@ -11,8 +11,9 @@ import java.sql.Connection;
 public class PropertiesReader {
 
 	public static Properties loadPropertiesFile() throws Exception {
+		String path = "./resources/config.properties";
 		Properties prop = new Properties();
-		InputStream is = new FileInputStream("config.properties");
+		InputStream is = new FileInputStream(path);
 		prop.load(is);
 		is.close();
 		return prop;
