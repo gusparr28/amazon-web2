@@ -7,28 +7,29 @@ import java.sql.SQLException;
 import java.util.Properties;
 import java.sql.Connection;
 
-
 public class PropertiesReader {
 
+	private static PropertiesReader prop = new PropertiesReader();
+	
 	public static Properties loadPropertiesFile() throws Exception {
 		String path = "./resources/config.properties";
-		Properties prop = new Properties();
+		Properties p = new Properties();
 		InputStream is = new FileInputStream(path);
-		prop.load(is);
+		p.load(is);
 		is.close();
-		return prop;
+		return p;
 	}
 	
 	public static void main(String[] args) {
 		Connection conn = null;
 		
 		try {
-			Properties prop = loadPropertiesFile();
+			Properties p = loadPropertiesFile();
 			
-			String driver = prop.getProperty("db.driver.class");
-			String url = prop.getProperty("db.conn.url");
-			String username = prop.getProperty("db.username");
-			String password = prop.getProperty("db.password");
+			String driver = p.getProperty("db.driver.class");
+			String url = p.getProperty("db.conn.url");
+			String username = p.getProperty("db.username");
+			String password = p.getProperty("db.password");
 			
 			Class.forName(driver);
 			
@@ -53,5 +54,17 @@ public class PropertiesReader {
 				ex.printStackTrace();
 			}
 		}
+		
 	}
+	
+	public static PropertiesReader getInstance() {
+		return prop;
+	}
+	
+	@SuppressWarnings("null")
+	public String getValue(String value) {
+		Properties p = null;
+		return p.getProperty(value);
+	}
+	
 }
