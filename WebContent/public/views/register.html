@@ -5,48 +5,47 @@
 			<title> Register </title>
 		</head>
 		<body>
-			<div id="modal-signup" class="modal">
+			<div class="modal">
         		<div class="modal-content">
-            		<h4>Sign up</h4><br />
-            		<form id="signup-form">
-                		<div class="input-field">
-                    		<input type="email" id="signup-email" name ="name" required />
-                    		<label for="signup-email">Name</label>
+            		<h4>Register</h4><br />
+            		<form name="registerForm" method="post" action="http://localhost:8080/Amazon/register">
+                		<div>
+                    		<input type="text" name="name"/>
+                    		<label>Name</label>
                 		</div>
-                		<div class="input-field">
-                    		<input type="password" id="signup-password" required />
-                    		<label for="signup-password">Last Name</label>
+                		<div>
+                			<input type="text" name="lastName"/>
+                			<label>Last Name</label>
                 		</div>
-                		<div class="input-field">
-                    		<input type="text" id="signup-bio" required />
-                    		<label for="signup-bio">Email</label>
+                		<div>
+                			<input name="email"/>
+                			<label>Email</label>
                 		</div>
-                		<div class="input-field">
-                    		<input type="email" id="signup-email" required />
-                    		<label for="signup-email">Password</label>
+                		<div>
+                			<input name="password"/>
+                			<label>Password</label>
                 		</div>
-                		<div class="input-field">
-                    		<input type="email" id="signup-email" required />
-                    		<label for="signup-email">Street</label>
+                		<div>
+                			<input name="country"/>
+                			<label>Country</label>
                 		</div>
-                		<div class="input-field">
-                    		<input type="email" id="signup-email" required />
-                    		<label for="signup-email">City</label>
+                		<div>
+                			<input name="city"/>
+                			<label>City</label>
                 		</div>
-                		<div class="input-field">
-                    		<input type="email" id="signup-email" required />
-                    		<label for="signup-email">State</label>
+                		<div>
+                			<input name="state"/>
+                			<label>State</label>
                 		</div>
-                		<div class="input-field">
-                    		<input type="email" id="signup-email" required />
-                    		<label for="signup-email"></label>
+                		<div>
+                			<input name="postalCode"/>
+                			<label>Postal Code</label>
                 		</div>
-                		<div class="input-field">
-                    		<input type="email" id="signup-email" required />
-                    		<label for="signup-email">Email address</label>
+                		<div>
+                			<input name="phone"/>
+                			<label>Phone</label>
                 		</div>
-                		<button class="btn yellow darken-2 z-depth-0">Sign up</button>
-                		<p class="error pink-text center-align"></p>
+                		<input type="submit"/>
             		</form>
         		</div>
     		</div>
