@@ -2,52 +2,25 @@
 	<html>
 		<head>
 			<meta charset="UTF-8">
-			<title> Register </title>
+			<title>Register</title>
+			<link rel="stylesheet" href="../styles/register.css"/>
 		</head>
 		<body>
-			<div class="modal">
-        		<div class="modal-content">
-            		<h4>Register</h4><br />
-            		<form name="registerForm" method="post" action="http://localhost:8080/Amazon/register">
-                		<div>
-                    		<input type="text" name="name"/>
-                    		<label>Name</label>
-                		</div>
-                		<div>
-                			<input type="text" name="lastName"/>
-                			<label>Last Name</label>
-                		</div>
-                		<div>
-                			<input name="email"/>
-                			<label>Email</label>
-                		</div>
-                		<div>
-                			<input name="password"/>
-                			<label>Password</label>
-                		</div>
-                		<div>
-                			<input name="country"/>
-                			<label>Country</label>
-                		</div>
-                		<div>
-                			<input name="city"/>
-                			<label>City</label>
-                		</div>
-                		<div>
-                			<input name="state"/>
-                			<label>State</label>
-                		</div>
-                		<div>
-                			<input name="postalCode"/>
-                			<label>Postal Code</label>
-                		</div>
-                		<div>
-                			<input name="phone"/>
-                			<label>Phone</label>
-                		</div>
-                		<input type="submit"/>
-            		</form>
-        		</div>
-    		</div>
+			<div class="form-wrap">
+            	<form id="signup-form" method="post" action="http://localhost:8080/Amazon/register">
+                	<h1>Register</h1>
+                    <input type="text" name="name" placeholder="Name"/>
+                	<input type="text" name="lastName" placeholder="Last Name"/>
+                	<input type="email" name="email" placeholder="Email"/>
+                	<input type="password" name="password" placeholder="Password"/>
+          			<input type="text" name="country" placeholder="Country"/>
+          			<input type="text" name="city" placeholder="City"/>
+                	<input type="text" name="state" placeholder="State"/>
+					<input type="text" name="street" placeholder="Street"/>
+					<input type="text" name="postalCode" placeholder="Postal Code"/>
+					<input type="text" name="phone" placeholder="Phone Number"/>
+					<input type="submit" value="Register"/> 
+            	</form>
+        	</div>
 		</body>
 	</html>

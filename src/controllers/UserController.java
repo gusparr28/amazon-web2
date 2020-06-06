@@ -11,27 +11,33 @@ import helpers.PropertiesReader;
 
 public class UserController { 
 	
-	public void loginUser(String email, String password) throws IOException {
-		String query = "SELECT * FROM cliente WHERE correo_cliente = ? AND contraseña_cliente = ?";
+	PropertiesReader prop = new PropertiesReader();
+	DBConnection conn = new DBConnection();
+	Connection con = conn.getConn();
+	
+	public String loginUser(String email, String password) throws IOException {
+		String query = prop.getValue("db.login.user");
 		try {
-			PreparedStatement pstmt = conn.prepareStatement(query);
+			PreparedStatement pstmt = con.prepareStatement(query);
 			pstmt.setString(1, email.toLowerCase());
 			pstmt.setString(2, password);
 			ResultSet rs = pstmt.executeQuery();
 			if(rs.next()) {
 				System.out.println("User successfully logged");
+				return "accessed";
 			} else {
 				System.out.println("Error");
 			} 
 		} catch(SQLException e) {
 			e.printStackTrace();
 		}
+		return query;
 	}
 	
-	public void registerUser(String name, String lastName, String email, String password, String country, String city, String state, String street, String postalCode, String phone) throws IOException {
-		String query = "INSERT INTO cliente (nombre_cliente, apellido_cliente, correo_cliente, contraseña_cliente, pais_cliente, ciudad_cliente, estado_cliente, calle_cliente, codpostal_cliente, telefono_cliente) VALUES(?,?,?,?,?,?,?,?,?,?)";
+	public String registerUser(String name, String lastName, String email, String password, String country, String city, String state, String street, String postalCode, String phone) throws IOException {
+		String query = prop.getValue("db.register.user");
 		try {
-			PreparedStatement pstmt = conn.prepareStatement(query);
+			PreparedStatement pstmt = con.prepareStatement(query);
 			pstmt.setString(1, name);
 			pstmt.setString(2, lastName);
 			pstmt.setString(3, email.toLowerCase());
@@ -45,18 +51,20 @@ public class UserController {
 			int rowsInserted = pstmt.executeUpdate();
 			if(rowsInserted > 0) {
 				System.out.println("User succesfully registered");
+				return "registered";
 			} else {
 				System.out.println("Error");
 			}
 		} catch(SQLException e) {
 			e.printStackTrace();
 		}
+		return query;
 	}
 	
 	public void updateUser(int id, String name, String lastName, String email, String password, String country, String city, String state, String street, String postalCode, String phone) throws IOException {
-		String query = "UPDATE cliente SET nombre_cliente = ?, apellido_cliente = ?, correo_cliente = ?, pais_cliente = ?, ciudad_cliente = ?, estado_cliente = ?, calle_cliente = ?, codpostal_cliente = ?, telefono_cliente = ? WHERE id_cliente = ? AND contraseña_cliente = ?";
+		String query = prop.getValue("db.update.user");
 		try {
-			PreparedStatement pstmt = conn.prepareStatement(query);
+			PreparedStatement pstmt = con.prepareStatement(query);
 			pstmt.setString(1, name);
 			pstmt.setString(2, lastName);
 			pstmt.setString(3, email.toLowerCase());
@@ -80,9 +88,9 @@ public class UserController {
 	}
 	
 	public void deleteUser(int id, String password) throws SQLException {
-		String query = "DELETE FROM cliente WHERE id_cliente = ? and contraseña_cliente = ?";
+		String query = prop.getValue("db.delete.user");
 		try {
-			PreparedStatement pstmt = conn.prepareStatement(query);
+			PreparedStatement pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, id);
 			pstmt.setString(2, password);
 			int rowsDeleted = pstmt.executeUpdate();
@@ -94,22 +102,5 @@ public class UserController {
 		} catch(SQLException e) {
 			e.printStackTrace();
 		}
-	}
-		
-	public boolean emailUser(String email) {
-		String query = "SELECT * FROM cliente WHERE correo_cliente = ?";
-		try {
-			PreparedStatement pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, email.toLowerCase());
-			ResultSet rs = pstmt.executeQuery();
-			if(rs.next()) {
-				return true;
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return true;
-		} finally {
-		}
-		return false;
 	}
 }

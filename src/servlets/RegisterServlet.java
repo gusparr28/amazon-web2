@@ -7,17 +7,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import controllers.UserController;
-import helpers.DBConnection;
+import helpers.Encryption;
 
 import java.io.*;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 
-/**
- * Servlet implementation class RegisterServlet
- */
 @WebServlet("/register")
 
 public class RegisterServlet extends HttpServlet {
@@ -28,9 +21,6 @@ public class RegisterServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		response.setContentType("text/html");
-		PrintWriter writer = response.getWriter();
 		
 		String name = request.getParameter("name");
 		String lastName = request.getParameter("lastName");
@@ -40,31 +30,22 @@ public class RegisterServlet extends HttpServlet {
 		String city = request.getParameter("city");
 		String state = request.getParameter("state");
 		String street = request.getParameter("street");
-		String postalCode = request.getParameter("postalcode");
+		String postalCode = request.getParameter("postalCode");
 		String phone = request.getParameter("phone");
+	
+		Encryption encryption = new Encryption();
+		String passEncrypted = encryption.getSHA256(password, email.toLowerCase());
 		
-		try {
-			Class.forName("org.postgresql.Driver");
-			Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/amazon", "postgres", "postgres");
-			PreparedStatement pstmt = conn.prepareStatement("INSERT INTO cliente (nombre_cliente, apellido_cliente, correo_cliente, contraseña_cliente, pais_cliente, ciudad_cliente, estado_cliente, calle_cliente, codpostal_cliente, telefono_cliente) VALUES(?,?,?,?,?,?,?,?,?,?)");
-			pstmt.setString(1, name);
-			pstmt.setString(2, lastName);
-			pstmt.setString(3, email.toLowerCase());
-			pstmt.setString(4, password);
-			pstmt.setString(5, country);
-			pstmt.setString(6, city);
-			pstmt.setString(7, state);
-			pstmt.setString(8, street);
-			pstmt.setString(9, postalCode);
-			pstmt.setString(10, phone);
-			int i = pstmt.executeUpdate();
-			if(i > 0) {
-				System.out.println("User succesfully registered");
-			} 
-		} catch(SQLException e) {
-			e.printStackTrace();
-		} catch(Exception e) {
-			e.printStackTrace();
+		UserController user = new UserController();
+		user.registerUser(name, lastName, email, passEncrypted, country, city, state, street, postalCode, phone);
+		
+		String registered = user.registerUser(name, lastName, email, passEncrypted, country, city, state, street, postalCode, phone);
+		if(registered.equals("registered")) {
+			response.sendRedirect("http://localhost:8080/Amazon/public/views/login.html");
+		} else {
+			PrintWriter writer = response.getWriter();
+			writer.print("<h1>Unable to register succesfully</h1>");
+			response.setStatus(404);
 		}
 	}
 }
