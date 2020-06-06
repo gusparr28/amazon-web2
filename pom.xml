@@ -4,6 +4,11 @@
   <artifactId>Amazon</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <name>Amazon</name>
+  <url>http://maven.apache.org</url>
+  <properties>
+  	<maven.compiler.source>1.8</maven.compiler.source>
+	<maven.compiler.target>1.8</maven.compiler.target>
+  </properties>
   <build>
     <sourceDirectory>src</sourceDirectory>
     <resources>
@@ -16,19 +21,26 @@
     </resources>
     <plugins>
       <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.8.0</version>
-        <configuration>
-          <release>11</release>
-          <artifactItems>
-          	<artifactItem>
-          		<groupId>com.heroku</groupId>
-				<artifactId>webapp-runner</artifactId>
-				<version>9.0.30.0</version>
-				<destFileName>webapp-runner.jar</destFileName>
-			</artifactItem>
-			</artifactItems>
-        </configuration>
+      	<groupId>org.apache.maven.plugins</groupId>
+      	<artifactId>maven-dependency-plugin</artifactId>
+      	<executions>
+      		<execution>
+      			<phase>package</phase>
+      			<goals>
+      				<goal>copy</goal>
+      			</goals>
+      			<configuration>
+      				<artifactItems>
+      					<artifactItem>
+      						<groupId>com.heroku</groupId>
+							<artifactId>webapp-runner</artifactId>
+							<version>9.0.30.0</version>
+							<destFileName>webapp-runner.jar</destFileName>
+      					</artifactItem>
+      				</artifactItems>
+      			</configuration>
+      		</execution>
+      	</executions>
       </plugin>
     </plugins>
   </build>
