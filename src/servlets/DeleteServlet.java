@@ -1,11 +1,16 @@
 package servlets;
 
 import java.io.IOException;
+import java.sql.SQLException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import controllers.UserController;
+import helpers.Encryption;
 
 /**
  * Servlet implementation class DeleteServlet
@@ -13,20 +18,33 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/delete")
 public class DeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public DeleteServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
-	/**
-	 * @see HttpServlet#doDelete(HttpServletRequest, HttpServletResponse)
-	 */
-	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	   
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		String email = request.getParameter("email");
+		String password = request.getParameter("password");
+		
+		Encryption encryption = new Encryption();
+		String passEncrypted = encryption.getSHA256(password, email.toLowerCase());
+		
+		UserController user = new UserController();
+		try {
+			user.deleteUser(email, passEncrypted);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		String deleted = null;
+		try {
+			deleted = user.deleteUser(email, passEncrypted);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		if(deleted.equals("deleted")) {
+			System.out.println("User sucessfully deleted");
+		} else {
+			System.out.println("Error");
+		}
 	}
-
 }

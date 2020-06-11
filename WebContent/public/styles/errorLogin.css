@@ -3,6 +3,10 @@
 	padding: 0;
 }
 
+label {
+	color: red;
+}
+
 ::placeholder {
 	color: white;
 	opacity: 1;
