@@ -1,13 +1,13 @@
 package servlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import controllers.UserController;
 import helpers.Encryption;
@@ -16,10 +16,6 @@ import helpers.Encryption;
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String email = request.getParameter("email");
@@ -31,14 +27,26 @@ public class LoginServlet extends HttpServlet {
 		UserController user = new UserController();
 		
 		String accessed = user.loginUser(email, passEncrypted);
-	
+		
+		HttpSession session = request.getSession(true);
+		session.setAttribute("email", email);
+		
 		if(accessed.equals("accessed") && email.equals("admin@admin.com")) {
 			System.out.println("Access granted");
+			request.setAttribute("email", email);
 			response.sendRedirect("http://localhost:8080/Amazon/public/views/admin.html");
 		} else if(accessed.equals("accessed") && !email.equals("admin@admin.com")) {
+<<<<<<< HEAD
 			response.sendRedirect("http://localhost:8080/Amazon/public/views/dashboard.html");
 		} else {
 			response.sendRedirect("http://localhost:8080/Amazon/public/views/adminDashboard.html");
+=======
+			request.setAttribute("email", email);
+			response.sendRedirect("http://localhost:8080/Amazon/public/views/dashboard.html");
+		} else {
+			response.sendRedirect("http://localhost:8080/Amazon/public/views/errorLogin.html");
+			response.setStatus(404);
+>>>>>>> master
 		}
 	}
 }

@@ -15,7 +15,11 @@ import java.io.*;
 
 public class RegisterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+<<<<<<< HEAD
 
+=======
+	
+>>>>>>> master
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String name = request.getParameter("name");

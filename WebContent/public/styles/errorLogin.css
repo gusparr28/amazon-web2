@@ -3,13 +3,24 @@
 	padding: 0;
 }
 
+<<<<<<< HEAD
+=======
+label {
+	color: red;
+}
+
+>>>>>>> master
 ::placeholder {
 	color: white;
 	opacity: 1;
 }
 
 body {
+<<<<<<< HEAD
 	background: #ecf1f4;
+=======
+	background: #ecb535;
+>>>>>>> master
 }
 
 .form-wrap {

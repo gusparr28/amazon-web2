@@ -88,11 +88,15 @@ public class UserController {
 		return query;
 	}
 	
+<<<<<<< HEAD
 	public String deleteUser(int id, String password) throws SQLException {
+=======
+	public String deleteUser(String email, String password) throws SQLException {
+>>>>>>> master
 		String query = prop.getValue("db.delete.user");
 		try {
 			PreparedStatement pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, id);
+			pstmt.setString(1, email);
 			pstmt.setString(2, password);
 			int rowsDeleted = pstmt.executeUpdate();
 			if(rowsDeleted > 0) {

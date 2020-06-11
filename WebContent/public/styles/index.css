@@ -1,3 +1,17 @@
+h1 {
+	text-align: center;
+	margin: 0;
+	padding: 0;
+}
+				
+p {
+	text-align: center;
+}
+				
+body {
+	background-color: #ecb535;
+}
+
 ul {
   list-style-type: none;
   margin: 0;
