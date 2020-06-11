@@ -15,10 +15,6 @@ import java.io.*;
 
 public class RegisterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -37,14 +33,13 @@ public class RegisterServlet extends HttpServlet {
 		String passEncrypted = encryption.getSHA256(password, email.toLowerCase());
 		
 		UserController user = new UserController();
-		user.registerUser(name, lastName, email, passEncrypted, country, city, state, street, postalCode, phone);
 		
 		String registered = user.registerUser(name, lastName, email, passEncrypted, country, city, state, street, postalCode, phone);
 		if(registered.equals("registered")) {
 			response.sendRedirect("http://localhost:8080/Amazon/public/views/login.html");
 		} else {
 			PrintWriter writer = response.getWriter();
-			writer.print("<h1>Unable to register succesfully</h1>");
+			writer.print("<h1>Unable to register successfully</h1>");
 			response.setStatus(404);
 		}
 	}

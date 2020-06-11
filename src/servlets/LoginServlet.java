@@ -29,7 +29,6 @@ public class LoginServlet extends HttpServlet {
 		String passEncrypted = encryption.getSHA256(password, email.toLowerCase());
 		
 		UserController user = new UserController();
-		user.loginUser(email, passEncrypted);
 		
 		String accessed = user.loginUser(email, passEncrypted);
 	
@@ -37,11 +36,9 @@ public class LoginServlet extends HttpServlet {
 			System.out.println("Access granted");
 			response.sendRedirect("http://localhost:8080/Amazon/public/views/admin.html");
 		} else if(accessed.equals("accessed") && !email.equals("admin@admin.com")) {
-			response.sendRedirect("http://localhost:8080/Amazon/public/views/client.html");
+			response.sendRedirect("http://localhost:8080/Amazon/public/views/dashboard.html");
 		} else {
-			PrintWriter writer = response.getWriter();
-			writer.print("<h1>Unable to login successfully</h1>");
-			response.setStatus(404);
+			response.sendRedirect("http://localhost:8080/Amazon/public/views/adminDashboard.html");
 		}
 	}
 }

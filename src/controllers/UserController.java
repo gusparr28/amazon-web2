@@ -61,7 +61,7 @@ public class UserController {
 		return query;
 	}
 	
-	public void updateUser(int id, String name, String lastName, String email, String password, String country, String city, String state, String street, String postalCode, String phone) throws IOException {
+	public String updateUser(String name, String lastName, String email, String password, String country, String city, String state, String street, String postalCode, String phone) throws IOException {
 		String query = prop.getValue("db.update.user");
 		try {
 			PreparedStatement pstmt = con.prepareStatement(query);
@@ -75,19 +75,20 @@ public class UserController {
 			pstmt.setString(8, street);
 			pstmt.setString(9, postalCode);
 			pstmt.setString(10, phone);
-			pstmt.setInt(11, id);
 			int rowsUpdated = pstmt.executeUpdate();
 			if(rowsUpdated > 0) {
 				System.out.println("An existing user was updated successfully");
+				return "updated";
 			} else {
 				System.out.println("Error");
 			}
 		} catch(SQLException e) {
 			e.printStackTrace();
 		}
+		return query;
 	}
 	
-	public void deleteUser(int id, String password) throws SQLException {
+	public String deleteUser(int id, String password) throws SQLException {
 		String query = prop.getValue("db.delete.user");
 		try {
 			PreparedStatement pstmt = con.prepareStatement(query);
@@ -96,11 +97,13 @@ public class UserController {
 			int rowsDeleted = pstmt.executeUpdate();
 			if(rowsDeleted > 0) {
 				System.out.println("User successfully deleted");
+				return "deleted";
 			} else {
 				System.out.println("Error");
 			}
 		} catch(SQLException e) {
 			e.printStackTrace();
 		}
+		return query;
 	}
 }
