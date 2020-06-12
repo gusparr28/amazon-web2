@@ -29,24 +29,17 @@ public class LoginServlet extends HttpServlet {
 		String accessed = user.loginUser(email, passEncrypted);
 		
 		HttpSession session = request.getSession(true);
-		session.setAttribute("email", email);
 		
 		if(accessed.equals("accessed") && email.equals("admin@admin.com")) {
 			System.out.println("Access granted");
-			request.setAttribute("email", email);
+			session.setAttribute("email", email);
 			response.sendRedirect("http://localhost:8080/Amazon/public/views/admin.html");
 		} else if(accessed.equals("accessed") && !email.equals("admin@admin.com")) {
-<<<<<<< HEAD
-			response.sendRedirect("http://localhost:8080/Amazon/public/views/dashboard.html");
-		} else {
-			response.sendRedirect("http://localhost:8080/Amazon/public/views/adminDashboard.html");
-=======
-			request.setAttribute("email", email);
+			session.setAttribute("email", email);
 			response.sendRedirect("http://localhost:8080/Amazon/public/views/dashboard.html");
 		} else {
 			response.sendRedirect("http://localhost:8080/Amazon/public/views/errorLogin.html");
 			response.setStatus(404);
->>>>>>> master
 		}
 	}
 }

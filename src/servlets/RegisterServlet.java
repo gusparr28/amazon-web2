@@ -15,16 +15,12 @@ import java.io.*;
 
 public class RegisterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-<<<<<<< HEAD
 
-=======
-	
->>>>>>> master
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		String email = request.getParameter("email");
 		String name = request.getParameter("name");
 		String lastName = request.getParameter("lastName");
-		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		String country = request.getParameter("country");
 		String city = request.getParameter("city");
@@ -38,7 +34,7 @@ public class RegisterServlet extends HttpServlet {
 		
 		UserController user = new UserController();
 		
-		String registered = user.registerUser(name, lastName, email, passEncrypted, country, city, state, street, postalCode, phone);
+		String registered = user.registerUser(email, name, lastName, passEncrypted, country, city, state, street, postalCode, phone);
 		if(registered.equals("registered")) {
 			response.sendRedirect("http://localhost:8080/Amazon/public/views/login.html");
 		} else {

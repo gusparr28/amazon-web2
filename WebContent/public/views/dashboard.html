@@ -2,35 +2,14 @@
 	<html>
 		<head>
 			<meta charset="UTF-8">
-<<<<<<< HEAD
 			<title>Amazon</title>
-=======
-			<title></title>
->>>>>>> master
 			<link rel="stylesheet" href="../styles/dashboard.css"/>
 		</head>
 		<body>
 			<nav>
 				<ul>
 					<li>
-<<<<<<< HEAD
-						<a href="products.html">Publish a product</a>
-					</li>
-					<li>
-						<a href="update.html">Update account</a>
-					</li>
-					<li>
-						<a href="products.html">Delete account</a>
-					</li>
-					<li>
-						<a href="products.html">Logout</a>
-					</li>
-				</ul>
-			</nav>
-		</body>
-	</html>
-=======
-                		<a href="update.html">Publish a product</a>
+                		<a href="products.html">Publish a product</a>
                 	</li>
 					<li>
                 		<a href="update.html">Update account</a>
@@ -39,17 +18,33 @@
                 		<a href="delete.html">Delete account</a>
                 	</li>
                 	<li>
-                		<a href="logout.html">Logout</a>
+                		<a id="btn">Logout</a>
                 	</li>
 				</ul>
 			</nav>
-			<form method="get" action="http://localhost:8080/Amazon/dashboard">
-				<input type="submit" value="Dashboard"/>
-			</form>
-			<form method="post" action="http://localhost:8080/Amazon/dashboard">
-				<input type="submit" value="Dashboard"/>
-			</form>
+			<script>
+				const logoutBtn = document.getElementById("btn");
+
+				logoutBtn.addEventListener("click", function() {
+					console.log("button");
+					
+					const endpoint = "http://localhost:8080/Amazon/logout";
+		
+					let fetchData = {
+						method: 'POST',
+						headers: new Headers()
+					}
+					
+					fetch(endpoint, fetchData)
+					.then(function() {
+						console.log("Success");
+					})
+					.catch(function() {
+						console.log("Failed")
+					})
+				});
+			</script>
 		</body>
 	</html>
-	
->>>>>>> master
+
+

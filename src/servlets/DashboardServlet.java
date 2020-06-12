@@ -1,38 +1,20 @@
 package servlets;
 
-<<<<<<< HEAD
 import java.io.IOException;
 import javax.servlet.ServletException;
-=======
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.MultipartConfig;
->>>>>>> master
+
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-<<<<<<< HEAD
-
-@WebServlet("/dashboard")
-public class DashboardServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
-	}
-
-=======
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
@@ -48,10 +30,8 @@ public class DashboardServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(true);
 		session1 = (String) session.getAttribute("email");
-		System.out.println("este es el metodo get " + session1);
 		String image = request.getParameter("input-file");
 		ServletOutputStream sos = response.getOutputStream();
-		String dir = "/home/gustavo/Pictures/" + image;
 		InputStream is = new FileInputStream(image);
 		String mimeType = "image/jpg";
 		byte[] bytes = new byte[1024];
@@ -69,7 +49,6 @@ public class DashboardServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(true);
 		session1 = (String) session.getAttribute("email");
-		System.out.println("este es el metodo post " + session1);
 		String title = request.getParameter("title");
 		String description = request.getParameter("description");
 		String amount = request.getParameter("amount");
@@ -78,7 +57,7 @@ public class DashboardServlet extends HttpServlet {
 		InputStream is = file.getInputStream();
 		OutputStream os = null;
 		try {
-			String dir = "home/gustavo" + this.getFileName(file);
+			String dir = "/home/gustavo/Pictures/" + this.getFileName(file);
 			os = new FileOutputStream(dir);
 			int read = 0;
 			byte[] bytes = new byte[1024];
@@ -87,7 +66,12 @@ public class DashboardServlet extends HttpServlet {
 				os.write(bytes, 0, read);
 			}
 			ProductController product = new ProductController();
-			product.publishProduct(title, description, dir, amount, session1);
+			
+			String published = product.publishProduct(title, description, dir, amount, session1);
+			
+			if(published.equals("published")) {
+				response.sendRedirect("http://localhost:8080/Amazon/public/views/dashboard.html");
+			}
 		} catch(Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -108,5 +92,4 @@ public class DashboardServlet extends HttpServlet {
 		}
 		return null;
 	}
->>>>>>> master
 }

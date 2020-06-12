@@ -2,28 +2,11 @@
 	<html>
 		<head>
 			<meta charset="UTF-8">
-<<<<<<< HEAD
-			<title>Publish a product</title>
-		</head>
-		<body>
-			<div class="form-wrap">
-            	<form id="signup-form" method="post" action="http://localhost:8080/Amazon/dashboard">
-                	<h1>Publish your products to be seen by a lot of people</h1>
-                  	<input type="text" name="title" placeholder="Title"/>
-                  	<textarea name="description" placeholder="Description"></textarea>
-                  	<input type="file" name="image" placeholder="Image"/>
-                  	<input type="number" name="amount" placeholder="Amount"/>
-					<input type="submit" value="Publish your product"/> 
-            	</form>
-        	</div>
-		</body>
-	</html>
-=======
 			<title>Publishing a product</title>
 		</head>
 		<body>
 			<div>
-				<form id ="product-form">
+				<form id ="product-form" method="post" enctype="multipart/form-data" action="http://localhost:8080/Amazon/dashboard">
 					<h1>Publish your product to be seen by a lot of people</h1>
 					<input type="text" name="title" placeholder="Title">
 					<textarea name="description" placeholder="Write a short description of your product"></textarea>
@@ -34,5 +17,4 @@
 			</div>
 		</body>
 	</html>
-	
->>>>>>> master
+

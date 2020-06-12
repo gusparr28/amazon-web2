@@ -12,9 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import controllers.UserController;
 import helpers.Encryption;
 
-/**
- * Servlet implementation class DeleteServlet
- */
 @WebServlet("/delete")
 public class DeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -28,11 +25,6 @@ public class DeleteServlet extends HttpServlet {
 		String passEncrypted = encryption.getSHA256(password, email.toLowerCase());
 		
 		UserController user = new UserController();
-		try {
-			user.deleteUser(email, passEncrypted);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 		
 		String deleted = null;
 		try {
@@ -42,9 +34,8 @@ public class DeleteServlet extends HttpServlet {
 		}
 		
 		if(deleted.equals("deleted")) {
-			System.out.println("User sucessfully deleted");
-		} else {
-			System.out.println("Error");
+			System.out.println("User deleted successfully");
+			response.sendRedirect("http://localhost:8080/Amazon/public/views/login.html");
 		}
 	}
 }

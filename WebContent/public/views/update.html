@@ -9,19 +9,36 @@
 			<div class="form-wrap">
             	<form id="update-form" method="post" action="http://localhost:8080/Amazon/update">
                 	<h1>Update account</h1>
-                    <input type="text" name="name" placeholder="Name" disabled /> <label>Can't be updated</label>
-                	<input type="text" name="lastName" placeholder="Last Name" disabled /> <label>Can't be updated</label>
-                	<input type="email" name="email" placeholder="Email" disabled /> <label>Can't be updated</label>
-                	<input type="password" name="password" placeholder="Password" required />
-          			<input type="text" name="country" placeholder="Country" required />
-          			<input type="text" name="city" placeholder="City" required />
-                	<input type="text" name="state" placeholder="State" required />
-					<input type="text" name="street" placeholder="Street" required />
-					<input type="text" name="postalCode" placeholder="Postal Code" required />
-					<input type="text" name="phone" placeholder="Phone Number" required/>
+                    <input type="text" id="name" placeholder="Name" disabled /> <label>Can't be updated</label>
+                	<input type="text" id="lastName" placeholder="Last Name" disabled /> <label>Can't be updated</label>
+                	<input type="email" id="email" name="email" placeholder="Email" disabled /> <label>Can't be updated</label>
+          			<input type="text" id="country" name="country" placeholder="Country" required />
+          			<input type="text" id="city" name="city" placeholder="City" required />
+                	<input type="text" id="state" name="state" placeholder="State" required />
+					<input type="text" id="street" name="street" placeholder="Street" required />
+					<input type="text" id="postalCode" name="postalCode" placeholder="Postal Code" required />
+					<input type="text" id="phone" name="phone" placeholder="Phone Number" required/>
 					<input type="submit" value="Update"/> 
             	</form>
-        	</div>
+			</div>
+        	<script>
+				const endpoint = fetch("http://localhost:8080/Amazon/update");
+            	
+				endpoint.then(response => {
+					return response.json();
+				}).then(people => {
+					console.log(people);
+					document.getElementById("name").value = people.name;
+					document.getElementById("lastName").value = people.lastName;
+					document.getElementById("email").value = people.email;
+					document.getElementById("country").value = people.country;
+					document.getElementById("city").value = people.city
+					document.getElementById("state").value = people.state;
+					document.getElementById("street").value = people.street;
+					document.getElementById("postalCode").value = people.postalCode;
+					document.getElementById("phone").value = people.phone;
+				});
+        	</script>
 		</body>
 	</html>
 	
