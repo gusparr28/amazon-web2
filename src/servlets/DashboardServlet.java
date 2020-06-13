@@ -7,6 +7,8 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.MultipartConfig;
@@ -18,6 +20,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import controllers.ProductController;
 
 @MultipartConfig
@@ -28,22 +33,16 @@ public class DashboardServlet extends HttpServlet {
 	String session1 = null;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 		HttpSession session = request.getSession(true);
-		session1 = (String) session.getAttribute("email");
-		String image = request.getParameter("input-file");
-		ServletOutputStream sos = response.getOutputStream();
-		InputStream is = new FileInputStream(image);
-		String mimeType = "image/jpg";
-		byte[] bytes = new byte[1024];
-		int bytesRead;
+		String session1 = (String) session.getAttribute("email");
 		
-		response.setContentType(mimeType);
+		ProductController product = new ProductController();
+		JSONObject json = product.showProduct(session1);
 		
-		while((bytesRead = is.read(bytes)) != -1) {
-			sos.write(bytes, 0, bytesRead);
-		}
-		is.close();
-		sos.close();
+		PrintWriter writer = response.getWriter();
+		writer.print(json.toString());
+		writer.flush();
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -8,10 +8,10 @@
 			<div>
 				<form id ="product-form" method="post" enctype="multipart/form-data" action="http://localhost:8080/Amazon/dashboard">
 					<h1>Publish your product to be seen by a lot of people</h1>
-					<input type="text" name="title" placeholder="Title">
-					<textarea name="description" placeholder="Write a short description of your product"></textarea>
-					<input type="file" id="input-file" name="image" value="Upload a image" multiple/>
-					<input type="number" name="amount"/>
+					<input type="text" name="title" placeholder="Title" required />
+					<textarea name="description" placeholder="Write a short description of your product" required></textarea>
+					<input type="file" id="input-file" name="image" value="Upload a image" multiple required />
+					<input type="number" name="amount" required />
 					<input type="submit" value="Publish your product" />
 				</form>
 			</div>

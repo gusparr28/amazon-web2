@@ -13,7 +13,6 @@ import javax.servlet.http.HttpSession;
 import org.json.JSONObject;
 
 import controllers.UserController;
-import helpers.Encryption;
 
 @WebServlet("/update")
 public class UpdateServlet extends HttpServlet {

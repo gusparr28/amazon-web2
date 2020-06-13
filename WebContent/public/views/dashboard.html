@@ -7,20 +7,22 @@
 		</head>
 		<body>
 			<nav>
-				<ul>
-					<li>
-                		<a href="products.html">Publish a product</a>
-                	</li>
-					<li>
-                		<a href="update.html">Update account</a>
-                	</li>
-                	<li>
-                		<a href="delete.html">Delete account</a>
-                	</li>
-                	<li>
-                		<a id="btn">Logout</a>
-                	</li>
-				</ul>
+				<div id="data">
+					<ul>
+						<li>
+                			<a href="products.html">Publish a product</a>
+                		</li>
+						<li>
+                			<a href="update.html">Update account</a>
+                		</li>
+                		<li>
+                			<a href="delete.html">Delete account</a>
+                		</li>
+                		<li>
+                			<a id="btn">Logout</a>
+                		</li>
+					</ul>
+				</div>
 			</nav>
 			<script>
 				const logoutBtn = document.getElementById("btn");
@@ -42,6 +44,27 @@
 					.catch(function() {
 						console.log("Failed")
 					})
+				});
+				
+				let user = "";
+				var data = [];
+
+				const endpoint = fetch("http://localhost:8080/Amazon/dashboard");
+				
+				endpoint.then(response => {
+					return response.json();
+				})
+				.then(people => {
+					console.log(people);
+					data.push(people);
+					document.getElementById("data").innerHTML = data.map(user => 
+						`<div>
+							<div>Title: ${user.title}</div>
+							<div>Description: ${user.description}</div>
+							<div>Image: ${user.image}</div>
+							<div>Amount: ${user.amount}</div>
+						</div>`
+					).join('');
 				});
 			</script>
 		</body>
