@@ -125,6 +125,8 @@ public class UserController {
 				String postalCode = rs.getString("codpostal_cliente");
 				String phone = rs.getString("telefono_cliente");
 				
+				System.out.println(name);
+				
 				JSONObject json = new JSONObject();
 				
 				json.put("name", name);

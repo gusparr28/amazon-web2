@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import helpers.DBConnection;
@@ -43,38 +42,38 @@ public class ProductController {
 	
 	public String updateProduct() {
 		String query = prop.getValue("db.update.product");
+		try {
+			PreparedStatement pstmt = con.prepareStatement(query);
+		} catch(SQLException e) {
+			
+		}
 		return query;
 	}
 	
-	public String deleteProduct() {
-		String query = prop.getValue("db.delete.product");
-		return query;
-	}
-
-	public JSONObject showProduct(String email) {
+	public List<String> showProducts(String email) {
+		JSONObject json = new JSONObject();
+		List<String> list = new ArrayList<String>();
 		String query = prop.getValue("db.show.product");
 		try {
 			PreparedStatement pstmt = con.prepareStatement(query);
 			pstmt.setString(1, email);
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next()) {
-				
 				String id = rs.getString("id_publicacion");
 				String title = rs.getString("titulo_publicacion");
 				String description = rs.getString("descripcion_publicacion");
 				String image = rs.getString("img_publicacion");
 				String amount = rs.getString("monto_publicacion");
-				
-				JSONObject json = new JSONObject();
-				
+
 				json.put("id", id);
 				json.put("title", title);
 				json.put("description", description);
 				json.put("image", image);
 				json.put("amount", amount);
 				
-				return json;
+				list.add(json.toString());
 			}
+			return list;
 		} catch(SQLException e) {
 			e.printStackTrace();
 		}
