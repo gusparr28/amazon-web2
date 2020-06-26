@@ -64,19 +64,25 @@
 							<div>Amount: ${user.amount}</div>
 						</div>`
 					).join('');
+
 					const detail = document.querySelectorAll(".detail");
+					
 					for (let i = 0; i < detail.length; i++) {
 						detail[i].addEventListener("click", () => {
 							const endpoint = "http://localhost:8080/Amazon/details";
 							const id = detail[i].id;
 							const data = {
 								method: "POST",
-								body: JSON.stringify(id)
+								body: JSON.stringify(parseInt(id))
 							};
 							fetch(endpoint, data)
 							.then((res) => {
-								console.log(res);
-								})
+								if(res.status == 200) {
+									window.location.href = "http://localhost:8080/Amazon/public/views/details.html";
+								} else {
+									window.alert("You are not connected to internet");
+								}
+							})
 							.catch((err) => {
 								console.log(err);
 							});
@@ -86,5 +92,4 @@
 			</script>
 		</body>
 	</html>
-
 

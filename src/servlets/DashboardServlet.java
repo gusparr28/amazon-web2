@@ -37,8 +37,8 @@ public class DashboardServlet extends HttpServlet {
 		HttpSession session = request.getSession(true);
 		String session1 = (String) session.getAttribute("email");
 		
-		ProductController product = new ProductController();
-		List<String> json = product.showProducts(session1);
+		ProductController products = new ProductController();
+		List<String> json = products.showProducts(session1);
 		
 		PrintWriter writer = response.getWriter();
 		writer.print(json.toString());

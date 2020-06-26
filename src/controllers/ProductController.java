@@ -37,7 +37,25 @@ public class ProductController {
 		} catch(SQLException e) {
 			e.printStackTrace();
 		}
-		return query;
+		return null;
+	}
+	
+	public String deleteProduct(String id) {
+		String query = prop.getValue("db.delete.product");
+		try {
+			PreparedStatement pstmt = con.prepareStatement(query);
+			pstmt.setString(1, id);
+			int rowDeleted = pstmt.executeUpdate();
+			if(rowDeleted > 0) {
+				System.out.println("Product successfully deleted");
+				return "deleted";
+			} else {
+				System.out.println("Error");
+			}
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	public String updateProduct() {
@@ -47,13 +65,13 @@ public class ProductController {
 		} catch(SQLException e) {
 			
 		}
-		return query;
+		return null;
 	}
 	
 	public List<String> showProducts(String email) {
 		JSONObject json = new JSONObject();
 		List<String> list = new ArrayList<String>();
-		String query = prop.getValue("db.show.product");
+		String query = prop.getValue("db.show.products");
 		try {
 			PreparedStatement pstmt = con.prepareStatement(query);
 			pstmt.setString(1, email);
@@ -80,6 +98,33 @@ public class ProductController {
 		return null;
 	}
 	
+	public JSONObject showProduct(String id) {
+		JSONObject json = new JSONObject();
+		String query = prop.getValue("db.show.product");
+		try {
+			PreparedStatement pstmt = con.prepareStatement(query);
+			pstmt.setString(1, id);
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				String id1 = rs.getString("id_publicacion");
+				String title = rs.getString("titulo_publicacion");
+				String description = rs.getString("descripcion_publicacion");
+				String image = rs.getString("img_publicacion");
+				String amount = rs.getString("monto_publicacion");
+
+				json.put("id", id1);
+				json.put("title", title);
+				json.put("description", description);
+				json.put("image", image);
+				json.put("amount", amount);
+			}
+			return json;
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	public String deleteProducts(String email) {
 		String query = prop.getValue("db.delete.products");
 		try {
@@ -95,6 +140,6 @@ public class ProductController {
 		} catch(SQLException e) {
 			e.printStackTrace();
 		}
-		return query;
+		return null;
 	}
 }
