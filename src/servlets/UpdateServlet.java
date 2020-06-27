@@ -24,7 +24,7 @@ public class UpdateServlet extends HttpServlet {
 		
 		HttpSession session = request.getSession(true);
 		String session1 = (String) session.getAttribute("email");
-		
+
 		UserController user = new UserController();
 		JSONObject json = user.getUserCredentials(session1);
 		

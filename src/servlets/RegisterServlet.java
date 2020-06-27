@@ -38,9 +38,7 @@ public class RegisterServlet extends HttpServlet {
 		if(registered.equals("registered")) {
 			response.sendRedirect("http://localhost:8080/Amazon/public/views/login.html");
 		} else {
-			PrintWriter writer = response.getWriter();
-			writer.print("<h1>Unable to register successfully</h1>");
-			response.setStatus(404);
+			response.sendRedirect("http://localhost:8080/Amazon/public/views/errorRegister.html");
 		}
 	}
 }

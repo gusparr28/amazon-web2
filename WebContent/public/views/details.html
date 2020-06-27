@@ -1,55 +1,18 @@
 <!DOCTYPE html>
-	<html>
-		<head>
-			<meta charset="UTF-8">
-				<title>Details</title>
-		</head>
-		<body>
-			<h1>Product Details</h1>
-			<script>
-				const endpoint = fetch("http://localhost:8080/Amazon/details");
-				endpoint.then(response => {
-					return response.json();
-				})
-				.then(res => {
-					document.body.innerHTML = 
-						`<div id=${res.id} class="detail">
-							<h1>Product Details</h1>
-							<div>Title: ${res.title}</div>
-							<div>Description: ${res.description}</div>
-							<div>Price: ${res.amount}</div>
-							<div>Image: ${res.image}</div>
-						</div>
-						<button>Edit product</button>
-						<button id="btn-delete">Delete product</button>`
+<html>
 
-						const deleteBtn = document.getElementById("btn-delete");
+<head>
+	<meta charset="UTF-8">
+	<title>Details</title>
+	<link rel="stylesheet" href="../styles/details.css"/>
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
+</head>
 
-						deleteBtn.addEventListener('click', () => {
+<body>
+	<script src="../scripts/details.js"></script>
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
 
-							const id = res.id;
-
-							const endpoint = "http://localhost:8080/Amazon/deleteProduct";
-
-							const data = {
-								method: "POST",
-								body: JSON.stringify(parseInt(id))
-							};
-
-							fetch(endpoint, data)
-							.then((res) => {
-								if (res.status == 200) {
-									window.location.href = "http://localhost:8080/Amazon/public/views/dashboard.html";
-								} else {
-									window.alert("Product can't be deleted");
-								}
-								console.log(res);
-							})	
-							.catch((err) => {
-								console.log(err);
-							});
-						});	
-					});
-			</script>
-		</body>
-	</html>
+</html>

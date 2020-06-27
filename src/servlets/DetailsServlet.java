@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
 
@@ -21,6 +22,7 @@ public class DetailsServlet extends HttpServlet {
 	JSONObject json = new JSONObject();
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		PrintWriter writer = response.getWriter();
 		writer.print(json.toString());
 	    writer.flush();

@@ -1,41 +1,22 @@
 h1 {
-	text-align: center;
-	margin: 0;
-	padding: 0;
-}
-				
-p {
-	text-align: center;
-}
-				
-body {
-	background-color: #ecb535;
-}
-
-ul {
-  list-style-type: none;
+  text-align: center;
   margin: 0;
   padding: 0;
-  overflow: hidden;
-  background-color: #333;
 }
 
-li {
-  float: left;
-}
-
-li a {
-  display: block;
-  color: white;
+p {
   text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
+  color: black;
 }
 
-li a:hover:not(.active) {
-  background-color: #111;
+body {
+  background-color: #288d94;
 }
 
-.active {
-  background-color: #4CAF50;
+.nav-wrapper {
+  background-color: rgb(48, 46, 46);;
+}
+
+span {
+  color: black;
 }

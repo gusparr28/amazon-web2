@@ -1,6 +1,7 @@
 package servlets;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,13 +10,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONObject;
+
 import controllers.UserController;
 import helpers.Encryption;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		JSONObject json = new JSONObject();
+		
+		PrintWriter writer = response.getWriter();
+		writer.print(json.toString());
+		writer.flush();
+	}
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String email = request.getParameter("email");
@@ -33,7 +44,7 @@ public class LoginServlet extends HttpServlet {
 		if(accessed.equals("accessed") && email.equals("admin@admin.com")) {
 			System.out.println("Access granted");
 			session.setAttribute("email", email);
-			response.sendRedirect("http://localhost:8080/Amazon/public/views/admin.html");
+			response.sendRedirect("http://localhost:8080/Amazon/public/views/adminDashboard.html");
 		} else if(accessed.equals("accessed") && !email.equals("admin@admin.com")) {
 			session.setAttribute("email", email);
 			response.sendRedirect("http://localhost:8080/Amazon/public/views/dashboard.html");

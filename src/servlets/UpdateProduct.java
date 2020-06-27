@@ -1,52 +1,33 @@
 package servlets;
 
-import java.io.IOException;
-import javax.servlet.ServletException;
-
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.PrintWriter;
-import java.util.List;
 
+import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
-
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import controllers.ProductController;
 
 @MultipartConfig
-@WebServlet("/dashboard")
-public class DashboardServlet extends HttpServlet {
+@WebServlet("/updateProduct")
+public class UpdateProduct extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
-	String session1 = null;
-	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession(true);
-		String session1 = (String) session.getAttribute("email");
-
-		ProductController products = new ProductController();
-		List<String> json = products.showProducts(session1);
-		
-		PrintWriter writer = response.getWriter();
-		writer.print(json.toString());
-		writer.flush();
-	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession(true);
-		session1 = (String) session.getAttribute("email");
 		String title = request.getParameter("title");
 		String description = request.getParameter("description");
 		String amount = request.getParameter("amount");
+		String id = request.getParameter("id-product");
 		
 		Part file = request.getPart("image");
+			
 		InputStream is = file.getInputStream();
 		OutputStream os = null;
 		try {
@@ -58,13 +39,15 @@ public class DashboardServlet extends HttpServlet {
 			while((read = is.read(bytes)) != -1) {
 				os.write(bytes, 0, read);
 			}
+			
 			ProductController product = new ProductController();
 			
-			String published = product.publishProduct(title, description, dir, amount, session1);
+			String updated = product.updateProduct(title, description, dir, amount, id);
 			
-			if(published.equals("published")) {
+			if(updated.equals("updated")) {
 				response.sendRedirect("http://localhost:8080/Amazon/public/views/dashboard.html");
-			}
+			};
+			
 		} catch(Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -84,5 +67,5 @@ public class DashboardServlet extends HttpServlet {
 			}
 		}
 		return null;
-	}
+	}		
 }

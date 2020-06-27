@@ -1,20 +1,46 @@
 <!DOCTYPE html>
-	<html>
-		<head>
-			<meta charset="UTF-8">
-			<title>Publishing a product</title>
-		</head>
-		<body>
-			<div>
-				<form id ="product-form" method="post" enctype="multipart/form-data" action="http://localhost:8080/Amazon/dashboard">
-					<h1>Publish your products to be seen by a lot of people</h1>
-					<input type="text" name="title" placeholder="Title" required />
-					<textarea name="description" placeholder="Write a short description of your product" required></textarea>
-					<input type="file" id="input-file" name="image" value="Upload a image" multiple required />
-					<input type="number" name="amount" required />
-					<input type="submit" value="Publish your product" />
-				</form>
-			</div>
-		</body>
-	</html>
+<html>
 
+<head>
+	<meta charset="UTF-8">
+	<title>Publishing a product</title>
+	<link rel="stylesheet" href="../styles/products.css" />
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"/>
+</head>
+
+<body>
+	<section class="section container" id="contact">
+		<div class="row">
+			<h1>Publishing products</h1>
+			<div class="col s12 l5">
+				<p>Insert your product data to be seen by a lot of people</p>
+				<div class="col s12 l5 offset-12">
+					<form id="product-form" method="post" enctype="multipart/form-data" action="http://localhost:8080/Amazon/dashboard">
+						<div class="input-field">
+							<input type="text" id="title" name="title" required />
+							<label for="title">Title</label>
+						</div>
+						<div class="input-field">
+							<textarea id="description" name="description" required></textarea>
+							<label for="description">Description</label>
+						</div>
+						<div class="input-field">
+							<input type="file" id="image" name="image" multiple required />
+						</div>
+						<div class="input-field">
+							<input type="number" id="amount" name="amount" required />
+							<label for="amount">Amount</label>
+						</div>
+						<button class="waves-effect waves-light btn-small green" type="submit">Publish</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+	
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+
+</html>

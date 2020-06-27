@@ -58,12 +58,22 @@ public class ProductController {
 		return null;
 	}
 	
-	public String updateProduct() {
+	public String updateProduct(String title, String description, String image, String amount, String id) {
 		String query = prop.getValue("db.update.product");
 		try {
 			PreparedStatement pstmt = con.prepareStatement(query);
+			pstmt.setString(1, title);
+			pstmt.setString(2, description);
+			pstmt.setString(3, image);
+			pstmt.setString(4, amount);
+			pstmt.setString(5, id);
+			int rowsUpdated = pstmt.executeUpdate();
+			if (rowsUpdated > 0) {
+				System.out.println("Product succesfully updated");
+				return "updated";
+			}
 		} catch(SQLException e) {
-			
+			e.printStackTrace();
 		}
 		return null;
 	}
