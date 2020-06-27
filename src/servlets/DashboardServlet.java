@@ -50,7 +50,7 @@ public class DashboardServlet extends HttpServlet {
 		InputStream is = file.getInputStream();
 		OutputStream os = null;
 		try {
-			String dir = "/home/gustavo/Pictures/" + this.getFileName(file);
+			String dir = this.getFileName(file);
 			os = new FileOutputStream(dir);
 			int read = 0;
 			byte[] bytes = new byte[1024];
